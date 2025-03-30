@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Basic styling */
+        body {
+            background: url('https://img.freepik.com/free-photo/programming-background-collage_23-2149901779.jpg')no-repeat center;
+    background-size: cover; /* Covers the entire screen */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repetition */
+    background-attachment: fixed; /* Keeps the image fixed when scrolling */
+    height: 100vh; /* Full height */
+    margin: 0;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-password {
+            margin-top: 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <select id="userRole">
+            <option value=""></option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+        <p class="forgot-password" onclick="forgotPassword()">Forgot Password?</p>
+        <p class="error-message" id="error-message"></p>
+    </div>
+
+    <script>
+        function login() {
+            const credentials = {
+                user: { username: "user", password: "user123" },
+                admin: { username: "admin", password: "admin123" }
+            };
+
+            let role = document.getElementById("userRole").value;
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let errorMessage = document.getElementById("error-message");
+
+            if (username === credentials[role].username && password === credentials[role].password) {
+                alert("Welcome, " + role.charAt(0).toUpperCase() + role.slice(1) + "!");
+                window.location.href = "./translate.html"; // Redirect to respective dashboard
+            } else {
+                errorMessage.textContent = "Invalid username or password!";
+            }
+        }
+
+        function forgotPassword() {
+            let role = document.getElementById("userRole").value;
+            alert("Password reset link sent to " + role + "'s registered email.");
+        }
+    </script>
+
+</body>
+</html>

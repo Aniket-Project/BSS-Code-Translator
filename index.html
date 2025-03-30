@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Language Translator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <!-- Header -->
+    <header>
+
+        <!-- <h1>Programming Language Translator</h1> -->
+        <img src="./img/logo.png" style="width: 150px;">
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+            
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./login.html">login</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Popup Chatbot</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            .chatbot-button {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .chatbot-container {
+                position: fixed;
+                bottom: 80px;
+                right: 20px;
+                width: 300px;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                display: none;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .chatbot-header {
+                background: #007bff;
+                color: white;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .chatbot-messages {
+                height: 250px;
+                overflow-y: auto;
+                padding: 10px;
+                background: #f1f1f1;
+            }
+            .chatbot-input {
+                display: flex;
+                padding: 10px;
+                border-top: 1px solid #ccc;
+            }
+            .chatbot-input input {
+                flex: 1;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .chatbot-input button {
+                margin-left: 5px;
+                padding: 5px 10px;
+                border: none;
+                background: #007bff;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chatbot-container" id="chatbot">
+            <div class="chatbot-header">
+                <span>Chatbot</span>
+                <button onclick="toggleChatbot()">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chat-messages">
+                <div>Bot: Hello! How can I assist you today?</div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chat-input" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <button class="chatbot-button" onclick="toggleChatbot()">💬</button>
+        <script>
+            function toggleChatbot() {
+                const chatbot = document.getElementById('chatbot');
+                chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'flex' : 'none';
+            }
+            function sendMessage() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+                if (message === '') return;
+                const chatMessages = document.getElementById('chat-messages');
+                chatMessages.innerHTML += `<div>User: ${message}</div>`;
+                input.value = '';
+                setTimeout(() => {
+                    chatMessages.innerHTML += `<div>Bot: I'm here to help!</div>`;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        </script>
+    </body>
+    </html>
+    
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h2>Convert Code Instantly!</h2>
+        <p>Translate your code from one programming language to another in seconds.</p>
+        <a href="./login.html" class="btn">Start Translating</a>
+    </section>
+
+    
+
+        
+
+    
+
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Programming Language Translator. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+<script src="translate.html"></script>
+</html>
