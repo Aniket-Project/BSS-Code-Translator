@@ -1,121 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        /* Basic styling */
-        body {
-            background: url('https://img.freepik.com/free-photo/programming-background-collage_23-2149901779.jpg')no-repeat center;
-    background-size: cover; /* Covers the entire screen */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents repetition */
-    background-attachment: fixed; /* Keeps the image fixed when scrolling */
-    height: 100vh; /* Full height */
-    margin: 0;
-            font-family: Arial, sans-serif;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <style>
+    body {
+      background: url('https://img.freepik.com/free-photo/programming-background-collage_23-2149901779.jpg') no-repeat center;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      text-align: center;
+    }
 
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            width: 400px;
-            text-align: center;
-        }
+    h2 {
+      margin-bottom: 20px;
+      color: #007bff;
+    }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #007bff;
-        }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-        select, input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    button:hover {
+      background-color: #0056b3;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    .forgot-password {
+      margin-top: 10px;
+      color: #007bff;
+      cursor: pointer;
+    }
 
-        .forgot-password {
-            margin-top: 10px;
-            color: #007bff;
-            cursor: pointer;
-        }
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
 
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <h2>Login</h2>
-        <select id="userRole">
-            <option value=""></option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select>
-        <input type="text" id="username" placeholder="Enter Username">
-        <input type="password" id="password" placeholder="Enter Password">
-        <button onclick="login()">Login</button>
-        <p class="forgot-password" onclick="forgotPassword()">Forgot Password?</p>
-        <p class="error-message" id="error-message"></p>
-    </div>
+<div class="login-container">
+  <h2>Login</h2>
+  <select id="userRole">
+    <option value=""></option>
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select>
+  <input type="text" id="username" placeholder="Enter Email" />
+  <input type="password" id="password" placeholder="Enter Password" />
+  <button onclick="login()">Login</button>
+  <p class="forgot-password" onclick="forgotPassword()">Forgot Password?</p>
+  <p class="forgot-password" onclick="firstTimeUser()">Don't have account?</p>
+  <p class="error-message" id="error-message"></p>
+</div>
 
-    <script>
-        function login() {
-            const credentials = {
-                user: { username: "user", password: "user123" },
-                admin: { username: "admin", password: "admin123" }
-            };
+<!-- Firebase SDK -->
+<script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
-            let role = document.getElementById("userRole").value;
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-            let errorMessage = document.getElementById("error-message");
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9z1ZPkIXPu3hjOcAOz8QxRq6aSw4kJnY",
+    authDomain: "bss-code-translator.firebaseapp.com",
+    projectId: "bss-code-translator",
+    storageBucket: "bss-code-translator.firebasestorage.app",
+    messagingSenderId: "153775520159",
+    appId: "1:153775520159:web:350753ee0fcd1b57b825aa",
+    measurementId: "G-RE8JPR62RT"
+  };
 
-            if (username === credentials[role].username && password === credentials[role].password) {
-                alert("Welcome, " + role.charAt(0).toUpperCase() + role.slice(1) + "!");
-                window.location.href = "./translate.html"; // Redirect to respective dashboard
-            } else {
-                errorMessage.textContent = "Invalid username or password!";
-            }
-        }
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-        function forgotPassword() {
-            let role = document.getElementById("userRole").value;
-            alert("Password reset link sent to " + role + "'s registered email.");
-        }
-    </script>
+
+
+  window.login = function () {
+    const role = document.getElementById("userRole").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.textContent = "";
+
+    if (role === "admin") {
+      const adminCredentials = { username: "admin", password: "admin123" };
+      if (username === adminCredentials.username && password === adminCredentials.password) {
+        alert("Welcome, Admin!");
+        window.location.href = "./translate.html";
+      } else {
+        errorMessage.textContent = "Invalid Admin credentials!";
+      }
+    } else if (role === "user") {
+      signInWithEmailAndPassword(auth, username, password)
+        .then(() => {
+          alert("Welcome, User!");
+          window.location.href = "./translate.html";
+        })
+        .catch((error) => {
+          errorMessage.textContent = error.message;
+        });
+    } else {
+      errorMessage.textContent = "Please select a role.";
+    }
+  };
+
+  window.forgotPassword = function () {
+    const role = document.getElementById("userRole").value;
+    const username = document.getElementById("username").value;
+
+    if (role === "user" && username) {
+      sendPasswordResetEmail(auth, username)
+        .then(() => {
+          alert("Password reset link sent to " + username);
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    } else if (role === "admin") {
+      alert("Admin password reset not supported.");
+    } else {
+      alert("Please select a role and enter your email.");
+    }
+  };
+
+  window.firstTimeUser= function() {
+        window.location.href = "./signup.html"; // redirects to signup page
+  };
+</script>
 
 </body>
 </html>

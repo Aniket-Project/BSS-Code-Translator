@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <style>
+    body {
+      background: url('https://img.freepik.com/free-photo/programming-background-collage_23-2149901779.jpg') no-repeat center;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .signup-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #28a745;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+    .forgot-password {
+      margin-top: 10px;
+      color: #007bff;
+      cursor: pointer;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="signup-container">
+  <h2>Create Account</h2>
+  <input type="text" id="email" placeholder="Enter Email" />
+  <input type="password" id="password" placeholder="Enter Password" />
+  <button onclick="signup()">Sign Up</button>
+  <p class="forgot-password" onclick="alreadyUser()">Already have account?</p>
+  <p class="error-message" id="error-message"></p>
+  <p class="success-message" id="success-message"></p>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9z1ZPkIXPu3hjOcAOz8QxRq6aSw4kJnY",
+    authDomain: "bss-code-translator.firebaseapp.com",
+    projectId: "bss-code-translator",
+    storageBucket: "bss-code-translator.firebasestorage.app",
+    messagingSenderId: "153775520159",
+    appId: "1:153775520159:web:350753ee0fcd1b57b825aa",
+    measurementId: "G-RE8JPR62RT"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.signup = function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const errorMessage = document.getElementById("error-message");
+    const successMessage = document.getElementById("success-message");
+
+    errorMessage.textContent = "";
+    successMessage.textContent = "";
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        successMessage.textContent = "Signup successful! Redirecting to login...";
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 2000);
+      })
+      .catch((error) => {
+        errorMessage.textContent = error.message;
+      });
+  };
+  window.alreadyUser= function() {
+        window.location.href = "./login.html"; // redirects to signup page
+  };
+
+</script>
+
+</body>
+</html>
